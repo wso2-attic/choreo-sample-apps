@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-sample-rest-api",
+  "version": "1.0.0",
+  "description": "A sample nodejs REST API - in-memory cache",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.18.1",
+    "node-cache": "^5.1.2"
+  }
+}
