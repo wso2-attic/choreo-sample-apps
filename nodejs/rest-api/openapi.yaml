@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Choreo Samples - Nodejs REST API
+  description: >-
+    This is a sample API specification for a simple in-memory cache application
+    written in Nodejs
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Choreo
+  url: https://choreo.dev
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: keys
+    description: In-memory key-value cache API
+paths:
+  /api/keys:
+    summary: List all keys
+    get:
+      summary: List all keys
+      operationId: ListAllKeys
+      tags:
+        - keys
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringArray'
+    post:
+      summary: Set or update cache item
+      operationId: SetNewKey
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid request body
+      tags:
+        - keys
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KeyValue'  
+              
+  /api/keys/{key}:
+    summary: Manage keys by ID
+    get:
+      tags:
+        - keys
+      summary: Get cache value by key
+      operationId: GetValueByKey
+      parameters:
+        - name: key
+          in: path
+          description: Key ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyValue'
+        '404':
+          description: Key not found
+    delete:
+      tags:
+        - keys
+      summary: Delete cache item
+      description: ''
+      operationId: ''
+      parameters:
+        - name: key
+          in: path
+          description: Key ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Key not found
+  /healthz:
+    summary: Healthcheck endpoint
+    get:
+      summary: Healthcheck
+      operationId: Healthcheck
+      responses:
+        '200':
+          description: Healthy response
+
+components:
+  schemas:
+    Key:
+      type: object
+      properties:
+        key:
+          type: string
+          example: 'my-key'
+    KeyValue:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key: 
+          type: string
+          example: 'my-key'
+        value:
+          type: string
+          example: 'my-value'
+        ttl:
+          type: integer
+          example: 30
+    StringArray:
+      type: array
+      items:
+        type: string
+  
