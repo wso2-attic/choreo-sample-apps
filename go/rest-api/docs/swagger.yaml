@@ -1,0 +1,139 @@
+definitions:
+  controllers.AddCategoryRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  controllers.AddCategoryResponse:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  controllers.AddPetRequest:
+    properties:
+      available:
+        type: boolean
+      category_id:
+        type: string
+      name:
+        type: string
+    type: object
+  controllers.AddPetResponse:
+    properties:
+      available:
+        type: boolean
+      category_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  controllers.GetPetByIdResponse:
+    properties:
+      available:
+        type: boolean
+      category_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  models.Category:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: This is a sample swagger
+  title: Choreo sample api
+  version: "1.0"
+paths:
+  /api/v1/category:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            items:
+              $ref: '#/definitions/models.Category'
+            type: array
+      summary: List available categories
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: pet details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AddCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/controllers.AddCategoryResponse'
+        "409":
+          description: Conflict
+          schema:
+            type: object
+      summary: Add pet to the store
+  /api/v1/pet:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: pet details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.AddPetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/controllers.AddPetResponse'
+      summary: Add pet to the store
+  /api/v1/pet/{id}:
+    get:
+      parameters:
+      - description: Pet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/controllers.GetPetByIdResponse'
+      summary: Get pet info by id
+  /healthz:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get pet info by id
+swagger: "2.0"
