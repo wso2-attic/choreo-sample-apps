@@ -1,6 +1,6 @@
 import app from "./app.mjs";
 
-const PORT = 8080 || parseInt(process.env.PORT);
+const PORT = parseInt(process.env.PORT) || 8080;
 
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
