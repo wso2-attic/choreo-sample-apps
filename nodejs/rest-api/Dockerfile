@@ -16,4 +16,4 @@ COPY . .
 # Set a non-root user
 USER 10014
 
-CMD [ "npm", "start" ]
+CMD [ "node", "index.mjs" ]
