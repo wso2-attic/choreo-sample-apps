@@ -1,114 +1,395 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "weather-api",
-        "version": "1.0"
+      "title": "weather-api",
+      "version": "1.0"
     },
     "paths": {
-        "/weather": {
-            "get": {
-                "tags": [
-                    "WeatherForecast"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            }
-                        }
+      "/weather": {
+        "get": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
                     }
-                }
-            },
-            "post": {
-                "tags": [
-                    "WeatherForecast"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "text/plain": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            },
-                            "text/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/WeatherForecast"
-                                    }
-                                }
-                            }
-                        }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
                     }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
+                    }
+                  }
                 }
+              }
             }
+          }
+        },
+        "post": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "parameters": [
+            {
+              "name": "location",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HttpResponseMessage"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HttpResponseMessage"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HttpResponseMessage"
+                  }
+                }
+              }
+            }
+          }
         }
+      }
     },
     "components": {
-        "schemas": {
-            "WeatherForecast": {
-                "type": "object",
-                "properties": {
-                    "date": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "temperatureC": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "temperatureF": {
-                        "type": "integer",
-                        "format": "int32",
-                        "readOnly": true
-                    },
-                    "summary": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "location": {
-                        "type": "string",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
+      "schemas": {
+        "HttpContent": {
+          "type": "object",
+          "properties": {
+            "headers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+              },
+              "nullable": true,
+              "readOnly": true
             }
+          },
+          "additionalProperties": false
+        },
+        "HttpMethod": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "HttpRequestMessage": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "$ref": "#/components/schemas/Version"
+            },
+            "versionPolicy": {
+              "$ref": "#/components/schemas/HttpVersionPolicy"
+            },
+            "content": {
+              "$ref": "#/components/schemas/HttpContent"
+            },
+            "method": {
+              "$ref": "#/components/schemas/HttpMethod"
+            },
+            "requestUri": {
+              "type": "string",
+              "format": "uri",
+              "nullable": true
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+              },
+              "nullable": true,
+              "readOnly": true
+            },
+            "properties": {
+              "type": "object",
+              "additionalProperties": { },
+              "nullable": true,
+              "readOnly": true,
+              "deprecated": true
+            },
+            "options": {
+              "type": "object",
+              "additionalProperties": { },
+              "nullable": true,
+              "readOnly": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "HttpResponseMessage": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "$ref": "#/components/schemas/Version"
+            },
+            "content": {
+              "$ref": "#/components/schemas/HttpContent"
+            },
+            "statusCode": {
+              "$ref": "#/components/schemas/HttpStatusCode"
+            },
+            "reasonPhrase": {
+              "type": "string",
+              "nullable": true
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+              },
+              "nullable": true,
+              "readOnly": true
+            },
+            "trailingHeaders": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair"
+              },
+              "nullable": true,
+              "readOnly": true
+            },
+            "requestMessage": {
+              "$ref": "#/components/schemas/HttpRequestMessage"
+            },
+            "isSuccessStatusCode": {
+              "type": "boolean",
+              "readOnly": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "HttpStatusCode": {
+          "enum": [
+            100,
+            101,
+            102,
+            103,
+            200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            226,
+            300,
+            301,
+            302,
+            303,
+            304,
+            305,
+            306,
+            307,
+            308,
+            400,
+            401,
+            402,
+            403,
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            421,
+            422,
+            423,
+            424,
+            426,
+            428,
+            429,
+            431,
+            451,
+            500,
+            501,
+            502,
+            503,
+            504,
+            505,
+            506,
+            507,
+            508,
+            510,
+            511
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "HttpVersionPolicy": {
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "type": "integer",
+          "format": "int32"
+        },
+        "StringStringIEnumerableKeyValuePair": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "nullable": true
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Version": {
+          "type": "object",
+          "properties": {
+            "major": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "minor": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "build": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "revision": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "majorRevision": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "minorRevision": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "WeatherForecast": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "temperatureC": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "temperatureF": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "summary": {
+              "type": "string",
+              "nullable": true
+            },
+            "location": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
         }
+      }
     }
-}
+  }

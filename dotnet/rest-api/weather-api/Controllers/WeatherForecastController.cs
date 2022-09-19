@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using weather_api.Services;
 
@@ -47,6 +48,57 @@ public class WeatherForecastController : ControllerBase
         _memoryCache.Set(cacheKey, weatherForecastCollection, cacheOptions);
         return weatherForecastCollection;
     }
+
+    [HttpPost]
+    public WeatherForecast Post(WeatherForecast weather)
+    {
+        List<WeatherForecast>? weatherForecastCollection = null;
+
+       bool cacheFound  = _memoryCache.TryGetValue(cacheKey, out weatherForecastCollection);
+        if(!cacheFound)
+        {
+            weatherForecastCollection = weatherService.GetWeather(Summaries).ToList();
+        }
+
+        weatherForecastCollection.Add(weather);
+
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromSeconds(10))
+            .SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+
+        _memoryCache.Set(cacheKey, weatherForecastCollection, cacheOptions);
+        return weather;
+    }
+
+    [HttpDelete]
+    public HttpResponseMessage Delete(string location)
+    {
+        List<WeatherForecast>? weatherForecastCollection = null;
+
+        bool cacheFound = _memoryCache.TryGetValue(cacheKey, out weatherForecastCollection);
+        if (!cacheFound)
+        {
+            weatherForecastCollection = weatherService.GetWeather(Summaries).ToList();
+        }
+        
+        var locationToRemove = weatherForecastCollection
+            .SingleOrDefault(w => w.Location == location);
+        if (locationToRemove == null)
+        {
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
+        }
+        weatherForecastCollection.Remove(locationToRemove);
+          
+
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromSeconds(10))
+            .SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+
+        _memoryCache.Set(cacheKey, weatherForecastCollection, cacheOptions);
+        return new HttpResponseMessage(HttpStatusCode.OK); 
+    }
+
+
 
 }
 
