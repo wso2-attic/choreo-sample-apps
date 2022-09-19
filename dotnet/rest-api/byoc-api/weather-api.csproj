@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>byoc_api</RootNamespace>
+    <AssemblyName>byoc-api</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
