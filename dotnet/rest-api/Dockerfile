@@ -13,4 +13,4 @@ WORKDIR /app
 COPY --from=build /app ./
 EXPOSE 5000
 USER 10015
-ENTRYPOINT ["dotnet", "byoc-api.dll"]
+ENTRYPOINT ["dotnet", "weather-api.dll"]
