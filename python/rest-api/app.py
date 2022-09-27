@@ -9,6 +9,14 @@ app = Flask(__name__)
 summaries = ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering"]
 location = [ "Colombo", "Galle", "Kandy", "Jaffna", "Anuradhapura", "Trincomalee", "Negombo", "Ratnapura", "Matale"]
 
+@app.route('/')
+def getWeatherApi():
+    return {"app":"weather-api", "time":datetime.now()};
+
+@app.route('/healthz')
+def healthz():
+    return {"app":"weather-api", "time":datetime.now(), "status":"running"};
+
 @app.route('/weather')
 def getWeatherForcast():
     weatherResults = []
