@@ -5,7 +5,7 @@ info:
 servers:
   - url: localhost://
 paths:
-  /080/api/v1/products:
+  /api/v1/products:
     post:
       tags:
         - default
@@ -53,7 +53,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /080/api/v1/products/1:
+  /api/v1/products/1:
     delete:
       tags:
         - default
