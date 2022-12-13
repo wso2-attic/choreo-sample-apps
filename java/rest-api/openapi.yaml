@@ -5,11 +5,20 @@ info:
 servers:
   - url: localhost://
 paths:
-  /api/v1/products:
+  /api/v1/products/:
+    get:
+      tags:
+        - default
+      summary: get all products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
     post:
       tags:
         - default
-      summary: create
+      summary: create a product
       requestBody:
         content:
           application/json:
@@ -28,7 +37,7 @@ paths:
     put:
       tags:
         - default
-      summary: update
+      summary: update a product
       requestBody:
         content:
           application/json:
@@ -44,20 +53,36 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /api/v1/products/{id}:
     get:
       tags:
         - default
-      summary: get
+      summary: get product by id
+      parameters:
+        - name: id
+          in: path
+          description: product ID
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: Successful response
           content:
             application/json: {}
-  /api/v1/products/1:
     delete:
       tags:
         - default
-      summary: delete
+      summary: delete product by id
+      parameters:
+        - name: id
+          in: path
+          description: product ID
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: Successful response
