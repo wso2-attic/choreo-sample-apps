@@ -5,7 +5,7 @@ info:
 servers:
   - url: localhost://
 paths:
-  /api/v1/products/:
+  /api/v1/products:
     get:
       tags:
         - default
