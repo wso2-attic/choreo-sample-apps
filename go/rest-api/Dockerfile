@@ -8,7 +8,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Create a new user with UID 10014
-RUN useradd -m -s /bin/bash -u 10014 -m choreouser
+RUN adduser -u 10014 -m choreouser
 
 
 
