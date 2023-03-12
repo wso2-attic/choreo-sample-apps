@@ -5,6 +5,7 @@ WORKDIR /source
 COPY . .
 RUN dotnet restore
 RUN dotnet publish -c release -o /app --no-restore
+RUN useradd -u 10015 -m choreouser
 
 #Serve Stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal
