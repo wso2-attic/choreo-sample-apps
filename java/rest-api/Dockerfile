@@ -23,7 +23,7 @@ RUN apk add --upgrade libtasn1-progs
 RUN apk update && apk upgrade zlib
 
 
-RUN apk add --upgrade libspring-web4-java
+RUN apk add libspring-web4-java
 
 
 MAINTAINER tnnmuhandiram
