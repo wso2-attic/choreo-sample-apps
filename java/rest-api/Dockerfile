@@ -23,8 +23,7 @@ RUN apk add --upgrade libtasn1-progs
 RUN apk update && apk upgrade zlib
 
 RUN apk update
-RUN apk upgrade spring
-RUN apk search spring
+RUN apk add --no-cache spring5=5.3.13-r0
 
 
 MAINTAINER tnnmuhandiram
