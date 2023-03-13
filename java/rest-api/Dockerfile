@@ -22,8 +22,9 @@ RUN apk add --upgrade libtasn1-progs
 # https://security.alpinelinux.org/vuln/CVE-2022-37434
 RUN apk update && apk upgrade zlib
 
-
-RUN apk add libspring-web4-java
+RUN apk update
+RUN apk upgrade spring
+RUN apk search spring
 
 
 MAINTAINER tnnmuhandiram
