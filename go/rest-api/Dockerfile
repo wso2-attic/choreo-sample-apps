@@ -8,7 +8,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Create a new user with UID 10014
-RUN adduser -u 10014 
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
 
 # COPY the source code as the last step
