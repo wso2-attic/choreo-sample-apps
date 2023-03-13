@@ -20,5 +20,9 @@ RUN php artisan config:cache && \
 # DB migration
 RUN php artisan migrate
 
+# Create a new user with UID 10014
+RUN useradd -u 10014 -m choreouser
+USER 10014
+
 ### Docker image metadata
 VOLUME ["/var/www/html/storage", "/var/www/html/bootstrap/cache"]
