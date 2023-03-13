@@ -14,7 +14,8 @@ RUN npm install
 COPY . .
 
 # Create a new user with UID 10014
-RUN useradd -u 10014 -m choreouser
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 # Set a non-root user
 USER 10014
 
