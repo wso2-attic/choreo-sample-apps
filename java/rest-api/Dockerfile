@@ -22,9 +22,9 @@ RUN apk add --upgrade libtasn1-progs
 # https://security.alpinelinux.org/vuln/CVE-2022-37434
 RUN apk update && apk upgrade zlib
 
-RUN apk update
-RUN apk add --no-cache spring5=5.3.13-r0
-
+# Create a new user with UID 10014
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
 MAINTAINER tnnmuhandiram
 
