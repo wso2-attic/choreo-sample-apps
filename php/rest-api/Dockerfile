@@ -12,6 +12,10 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # copy env file for our Docker image
 COPY .env /var/www/html/.env
 
+# Create a new user with UID 10014
+RUN useradd -u 10014 -m choreouser
+USER 10014
+
 RUN php artisan config:cache && \
     php artisan route:cache && \
     chmod 777 -R /var/www/html/storage/ && \
@@ -19,6 +23,8 @@ RUN php artisan config:cache && \
 
 # DB migration
 RUN php artisan migrate
+
+
 
 ### Docker image metadata
 VOLUME ["/var/www/html/storage", "/var/www/html/bootstrap/cache"]
