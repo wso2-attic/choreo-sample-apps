@@ -1,2 +1,2 @@
 # choreo-sample-apps
-WSO2 Choreo code samples and examples in Go, .NET, Java, Python, Node.js, PHP and Ruby
+WSO2 Choreo code samples and examples in Go, Java, Python,and Node.js.
