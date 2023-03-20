@@ -3,7 +3,7 @@ info:
   title: Greeting Service
   version: 1.0.0
 paths:
-  /hello:
+  /greeter/greet:
     get:
       summary: Greet a person
       description: Greet a person by name
@@ -13,7 +13,7 @@ paths:
         - name: name
           in: query
           description: Name of the person to greet
-          required: true
+          required: false
           schema:
             type: string
       responses:
