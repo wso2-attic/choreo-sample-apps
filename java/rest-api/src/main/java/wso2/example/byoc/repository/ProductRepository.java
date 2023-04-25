@@ -9,14 +9,15 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository {
-    private List<Product> list = new ArrayList<Product>();
 
-    public void createProducts() {
-        list = List.of(
+    List<Product> list;
+
+    ProductRepository() {
+        list = new ArrayList<>(List.of(
                 new Product(1, "product 1", 10, 1000),
                 new Product(2, "product 2", 20, 2000),
                 new Product(3, "product 3", 30, 3000)
-        );
+        ));
     }
 
     public List<Product> getAllProducts() {
