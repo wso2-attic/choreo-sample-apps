@@ -1,10 +1,10 @@
-package wso2.example.byoc;
+package com.wso2.choreo.sample.springboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ByocApplicationTests {
+class ProductCatalogApplicationTests {
 
 	@Test
 	void contextLoads() {
