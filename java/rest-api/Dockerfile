@@ -3,7 +3,7 @@
 # 1. Building the App with Maven
 FROM maven:3.8.7-eclipse-temurin-19-alpine
 
-ADD . /byoc-java-springboot
+ADD . /java-springboot
 WORKDIR /byoc-java-springboot
 
 # Just echo so we can see, if everything is there :)
@@ -11,7 +11,6 @@ RUN ls -l
 
 # Run Maven build
 RUN mvn clean install
-
 
 # 2. Just using the build artifact and then removing the build-container
 FROM openjdk:19-alpine
@@ -26,8 +25,6 @@ RUN apk update && apk upgrade zlib
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
     adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
-
-MAINTAINER tnnmuhandiram
 
 VOLUME /tmp
 

@@ -1,10 +1,11 @@
-package wso2.example.byoc.controller;
+package com.wso2.choreo.sample.springboot.controller;
 
-import wso2.example.byoc.model.Product;
-import wso2.example.byoc.service.ProductService;
+import com.wso2.choreo.sample.springboot.model.Product;
+import com.wso2.choreo.sample.springboot.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> findAllProducts() {
-        return service.getProducts();
+    public Collection<Product> findAllProducts() {
+        return service.getProducts().values();
     }
 
     @GetMapping("{id}")

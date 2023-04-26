@@ -1,11 +1,11 @@
-package wso2.example.byoc.service;
+package com.wso2.choreo.sample.springboot.service;
 
-import wso2.example.byoc.model.Product;
-import wso2.example.byoc.repository.ProductRepository;
+import com.wso2.choreo.sample.springboot.model.Product;
+import com.wso2.choreo.sample.springboot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductService {
@@ -16,7 +16,7 @@ public class ProductService {
         return repository.save(product);
     }
 
-    public List<Product> getProducts() {
+    public Map<Integer, Product> getProducts() {
         return repository.getAllProducts();
     }
 
