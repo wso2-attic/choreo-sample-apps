@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired

@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
-  title: java-rest-api
+  title: product-catalog-api
   version: 1.0.0
 servers:
-  - url: localhost://
+  - url: http://localhost:8080
 paths:
-  /api/v1/products:
+  /products:
     post:
       tags:
         - default
@@ -53,7 +53,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/v1/products/1:
+  /products/1:
     delete:
       tags:
         - default
