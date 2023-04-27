@@ -16,18 +16,11 @@
  * under the License.
  */
 
-package routes
+package repositories
 
 import (
-	"github.com/wso2/choreo-sample-apps/go/rest-api/internal/config"
-	"github.com/wso2/choreo-sample-apps/go/rest-api/internal/controllers"
-	"github.com/wso2/choreo-sample-apps/go/rest-api/internal/repositories"
+	"errors"
 )
 
-var bookController *controllers.BookController
-
-func initControllers() {
-	initialData := config.LoadInitialData()
-	bookRepository := repositories.NewBookRepository(initialData.Books)
-	bookController = controllers.NewBookController(bookRepository)
-}
+var ErrRecordNotFound = errors.New("record not found")
+var ErrRecordAlreadyExists = errors.New("record already exists")
