@@ -1,26 +1,30 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample swagger",
-        "title": "Choreo sample api",
+        "description": "This is a sample service that manages a list of reading items.",
+        "title": "Choreo Reading List",
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8000",
+    "host": "localhost:8080",
+    "basePath": "/api/v1/reading-list",
     "paths": {
-        "/api/v1/category": {
+        "/books": {
             "get": {
                 "produces": [
                     "application/json"
                 ],
-                "summary": "List available categories",
+                "tags": [
+                    "books"
+                ],
+                "summary": "List all the reading list books",
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "successful operation",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Category"
+                                "$ref": "#/definitions/models.Book"
                             }
                         }
                     }
@@ -33,74 +37,56 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Add pet to the store",
+                "tags": [
+                    "books"
+                ],
+                "summary": "Add a new book to the reading list",
                 "parameters": [
                     {
-                        "description": "pet details",
+                        "description": "New book details",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.AddCategoryRequest"
+                            "$ref": "#/definitions/models.Book"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "ok",
+                    "201": {
+                        "description": "successful operation",
                         "schema": {
-                            "$ref": "#/definitions/controllers.AddCategoryResponse"
+                            "$ref": "#/definitions/models.Book"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid book details",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
                         }
                     },
                     "409": {
-                        "description": "Conflict",
+                        "description": "book already exists",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/utils.ErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/pet": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Add pet to the store",
-                "parameters": [
-                    {
-                        "description": "pet details",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.AddPetRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ok",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.AddPetResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/pet/{id}": {
+        "/books/{id}": {
             "get": {
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Get pet info by id",
+                "tags": [
+                    "books"
+                ],
+                "summary": "Get reading list book by id",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Pet ID",
+                        "description": "Book ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -108,26 +94,97 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "successful operation",
                         "schema": {
-                            "$ref": "#/definitions/controllers.GetPetByIdResponse"
+                            "$ref": "#/definitions/models.Book"
+                        }
+                    },
+                    "404": {
+                        "description": "book not found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
                         }
                     }
                 }
-            }
-        },
-        "/healthz": {
-            "post": {
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Get pet info by id",
+                "tags": [
+                    "books"
+                ],
+                "summary": "Update a reading list book by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Updated book details",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Book"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "successful operation",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.Book"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid book details",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "book not found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Delete a reading list book by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/models.Book"
+                        }
+                    },
+                    "404": {
+                        "description": "book not found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
                         }
                     }
                 }
@@ -135,81 +192,55 @@
         }
     },
     "definitions": {
-        "controllers.AddCategoryRequest": {
+        "models.Book": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "controllers.AddCategoryResponse": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "controllers.AddPetRequest": {
-            "type": "object",
-            "properties": {
-                "available": {
-                    "type": "boolean"
-                },
-                "category_id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "controllers.AddPetResponse": {
-            "type": "object",
-            "properties": {
-                "available": {
-                    "type": "boolean"
-                },
-                "category_id": {
-                    "type": "string"
+                "author": {
+                    "type": "string",
+                    "example": "J. R. R. Tolkien"
                 },
                 "id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "fe2594d0-ccea-42a2-97ac-0487458b5642"
                 },
-                "name": {
-                    "type": "string"
+                "status": {
+                    "enum": [
+                        "to_read",
+                        "reading",
+                        "read"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.ReadStatus"
+                        }
+                    ],
+                    "example": "to_read"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "The Lord of the Rings"
                 }
             }
         },
-        "controllers.GetPetByIdResponse": {
-            "type": "object",
-            "properties": {
-                "available": {
-                    "type": "boolean"
-                },
-                "category_id": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
+        "models.ReadStatus": {
+            "type": "string",
+            "enum": [
+                "to_read",
+                "reading",
+                "read"
+            ],
+            "x-enum-varnames": [
+                "ReadStatusToRead",
+                "ReadStatusReading",
+                "ReadStatusRead"
+            ]
         },
-        "models.Category": {
+        "utils.ErrorResponse": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
+                "message": {
+                    "type": "string",
+                    "example": "error message"
                 }
             }
         }
