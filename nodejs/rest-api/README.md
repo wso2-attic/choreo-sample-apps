@@ -1,10 +1,15 @@
-# Choreo Samples
+# Choreo Sample REST API - Reading List
 
-## Sample Nodejs REST API
+### Use the following configuration when creating this component in Choreo:
 
-#### Use the following build config when creating this component in Choreo:
+- Build Preset: **Dockerfile**
+- Dockerfile Path: `nodejs/rest-api/Dockerfile`
+- Docker Context Path: `nodejs/rest-api`
 
-- Dockerfile: `nodejs/rest-api/Dockerfile`
-- Docker context: `nodejs/rest-api/`
-- Port: `8080` (or set env var `PORT`)
-- OpenAPI filepath: `nodejs/rest-api/openapi.yaml`
+The [endpoints.yaml](.choreo/endpoints.yaml) file contains the endpoint configurations that are used by the Choreo to expose the service.
+
+### Run the service locally
+
+```shell
+npm install && node index.mjs
+```
