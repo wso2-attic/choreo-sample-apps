@@ -15,7 +15,7 @@
 # under the License.
 
 
-# This Dockerfile creates an image that contains the go-greeter executable.
+# This Dockerfile creates an image that contains the C#-greeter executable.
 # The image is based on a small Alpine Linux image.
 # The image uses a non-root user with a known UID/GID to run the container.
 # The image has a single entrypoint, the go-greeter executable.
@@ -24,10 +24,10 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the Go source file into the container
+# Copy the source file into the container
 COPY . .
 
-# Build the Go program inside the container
+# Build the program inside the container
 RUN dotnet restore && \
     dotnet publish -c PublishRelease -o out
 
