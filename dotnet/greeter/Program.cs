@@ -7,7 +7,7 @@ namespace GreeterApp
     {
         static void Main(string[] args)
         {
-            string host = "localhost";
+            string host = "*";
             int port = 9090;
             string prefix = $"http://{host}:{port}/greeter/";
 
