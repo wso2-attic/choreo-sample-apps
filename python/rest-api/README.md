@@ -1,9 +1,16 @@
-# Choreo Samples
+# Choreo Sample REST API - Reading List
 
-## Sample Python REST API
+### Use the following configuration when creating this component in Choreo:
 
-#### Use the following build config when creating this component in Choreo:
+- Build Preset: **Dockerfile**
+- Dockerfile Path: `python/rest-api/Dockerfile`
+- Docker Context Path: `python/rest-api`
 
-- Dockerfile: `python/rest-api/Dockerfile`
-- Docker context: `python/rest-api/`
-- Port: `5000` (or set env var `PORT`)
+The [endpoints.yaml](.choreo/endpoints.yaml) file contains the endpoint configurations that are used by the Choreo to expose the service.
+
+### Run the service locally
+
+```shell
+pip3 install -r requirements.txt
+flask run
+```
