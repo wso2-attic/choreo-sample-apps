@@ -52,4 +52,4 @@ def update_book_status(book_id):
     return '', 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
