@@ -48,6 +48,11 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/KeyValue"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyValue"
 
   /books/{id}:
     summary: Get book by ID
@@ -103,19 +108,16 @@ paths:
           required: true
           schema:
             type: string
-        - name: book
-          in: body
-          description: Book to add to the list
-          required: true
-          schema:
-            $ref: "#/components/schemas/KeyValue"
-
       responses:
         "200":
           description: Successful operation
         "404":
           description: id not found
-
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Status"
   /healthz:
     summary: Healthcheck endpoint
     get:
@@ -142,13 +144,13 @@ components:
     KeyValue:
       type: object
       required:
-        - title
+        - name
         - author
         - status
       properties:
-        title:
+        name:
           type: string
-          example: "my-title"
+          example: "my-name"
         author:
           type: string
           example: "my-author"
