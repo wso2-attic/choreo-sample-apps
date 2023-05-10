@@ -17,7 +17,7 @@ tags:
   - name: books
     description: In-memory book list cache API
 paths:
-  /reading-list/books:
+  /books:
     summary: List all books
     get:
       summary: List all books
@@ -47,7 +47,7 @@ paths:
             schema:
               $ref: "#/components/schemas/KeyValue"
 
-  /reading-list/books/{id}:
+  /books/{id}:
     summary: Get book by ID
     get:
       tags:
