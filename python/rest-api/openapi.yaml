@@ -41,13 +41,6 @@ paths:
           description: Invalid request body
       tags:
         - books
-      parameters:
-        - name: book
-          in: body
-          description: Book to add to the list
-          required: true
-          schema:
-            $ref: "#/components/schemas/KeyValue"
       requestBody:
         content:
           application/json:
