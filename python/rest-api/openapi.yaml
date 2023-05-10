@@ -1,281 +1,156 @@
-{
-  "openapi": "3.0.1",
-  "info": { "title": "weather-api", "version": "1.0" },
-  "paths":
-    {
-      "/weather":
-        {
-          "get":
-            {
-              "tags": ["WeatherForecast"],
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "Success",
-                      "content":
-                        {
-                          "text/plain":
-                            {
-                              "schema":
-                                {
-                                  "type": "array",
-                                  "items":
-                                    {
-                                      "$ref": "#/components/schemas/WeatherForecast",
-                                    },
-                                },
-                            },
-                          "application/json":
-                            {
-                              "schema":
-                                {
-                                  "type": "array",
-                                  "items":
-                                    {
-                                      "$ref": "#/components/schemas/WeatherForecast",
-                                    },
-                                },
-                            },
-                          "text/json":
-                            {
-                              "schema":
-                                {
-                                  "type": "array",
-                                  "items":
-                                    {
-                                      "$ref": "#/components/schemas/WeatherForecast",
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    },
-  "components":
-    {
-      "schemas":
-        {
-          "HttpContent":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "headers":
-                    {
-                      "type": "array",
-                      "items":
-                        {
-                          "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair",
-                        },
-                      "nullable": true,
-                      "readOnly": true,
-                    },
-                },
-              "additionalProperties": false,
-            },
-          "HttpMethod":
-            {
-              "type": "object",
-              "properties":
-                { "method": { "type": "string", "nullable": true } },
-              "additionalProperties": false,
-            },
-          "HttpRequestMessage":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "version": { "$ref": "#/components/schemas/Version" },
-                  "versionPolicy":
-                    { "$ref": "#/components/schemas/HttpVersionPolicy" },
-                  "content": { "$ref": "#/components/schemas/HttpContent" },
-                  "method": { "$ref": "#/components/schemas/HttpMethod" },
-                  "requestUri":
-                    { "type": "string", "format": "uri", "nullable": true },
-                  "headers":
-                    {
-                      "type": "array",
-                      "items":
-                        {
-                          "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair",
-                        },
-                      "nullable": true,
-                      "readOnly": true,
-                    },
-                  "properties":
-                    {
-                      "type": "object",
-                      "additionalProperties": {},
-                      "nullable": true,
-                      "readOnly": true,
-                      "deprecated": true,
-                    },
-                  "options":
-                    {
-                      "type": "object",
-                      "additionalProperties": {},
-                      "nullable": true,
-                      "readOnly": true,
-                    },
-                },
-              "additionalProperties": false,
-            },
-          "HttpResponseMessage":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "version": { "$ref": "#/components/schemas/Version" },
-                  "content": { "$ref": "#/components/schemas/HttpContent" },
-                  "statusCode":
-                    { "$ref": "#/components/schemas/HttpStatusCode" },
-                  "reasonPhrase": { "type": "string", "nullable": true },
-                  "headers":
-                    {
-                      "type": "array",
-                      "items":
-                        {
-                          "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair",
-                        },
-                      "nullable": true,
-                      "readOnly": true,
-                    },
-                  "trailingHeaders":
-                    {
-                      "type": "array",
-                      "items":
-                        {
-                          "$ref": "#/components/schemas/StringStringIEnumerableKeyValuePair",
-                        },
-                      "nullable": true,
-                      "readOnly": true,
-                    },
-                  "requestMessage":
-                    { "$ref": "#/components/schemas/HttpRequestMessage" },
-                  "isSuccessStatusCode":
-                    { "type": "boolean", "readOnly": true },
-                },
-              "additionalProperties": false,
-            },
-          "HttpStatusCode":
-            {
-              "enum":
-                [
-                  100,
-                  101,
-                  102,
-                  103,
-                  200,
-                  201,
-                  202,
-                  203,
-                  204,
-                  205,
-                  206,
-                  207,
-                  208,
-                  226,
-                  300,
-                  301,
-                  302,
-                  303,
-                  304,
-                  305,
-                  306,
-                  307,
-                  308,
-                  400,
-                  401,
-                  402,
-                  403,
-                  404,
-                  405,
-                  406,
-                  407,
-                  408,
-                  409,
-                  410,
-                  411,
-                  412,
-                  413,
-                  414,
-                  415,
-                  416,
-                  417,
-                  421,
-                  422,
-                  423,
-                  424,
-                  426,
-                  428,
-                  429,
-                  431,
-                  451,
-                  500,
-                  501,
-                  502,
-                  503,
-                  504,
-                  505,
-                  506,
-                  507,
-                  508,
-                  510,
-                  511,
-                ],
-              "type": "integer",
-              "format": "int32",
-            },
-          "HttpVersionPolicy":
-            { "enum": [0, 1, 2], "type": "integer", "format": "int32" },
-          "StringStringIEnumerableKeyValuePair":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "key": { "type": "string", "nullable": true },
-                  "value":
-                    {
-                      "type": "array",
-                      "items": { "type": "string" },
-                      "nullable": true,
-                    },
-                },
-              "additionalProperties": false,
-            },
-          "Version":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "major": { "type": "integer", "format": "int32" },
-                  "minor": { "type": "integer", "format": "int32" },
-                  "build": { "type": "integer", "format": "int32" },
-                  "revision": { "type": "integer", "format": "int32" },
-                  "majorRevision":
-                    { "type": "integer", "format": "int32", "readOnly": true },
-                  "minorRevision":
-                    { "type": "integer", "format": "int32", "readOnly": true },
-                },
-              "additionalProperties": false,
-            },
-          "WeatherForecast":
-            {
-              "type": "object",
-              "properties":
-                {
-                  "date": { "type": "string", "format": "date-time" },
-                  "temperatureC": { "type": "integer", "format": "int32" },
-                  "temperatureF":
-                    { "type": "integer", "format": "int32", "readOnly": true },
-                  "summary": { "type": "string", "nullable": true },
-                  "location": { "type": "string", "nullable": true },
-                },
-              "additionalProperties": false,
-            },
-        },
-    },
-}
+openapi: 3.0.3
+info:
+  title: Choreo Samples - Reading List - Python REST API
+  description: >-
+    This is a sample API specification for a simple reading list application with in-memory cache
+    written in Python.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Choreo
+  url: https://choreo.dev
+servers:
+  - url: http://localhost:5000
+tags:
+  - name: books
+    description: In-memory book list cache API
+paths:
+  /books:
+    summary: List all books
+    get:
+      summary: List all books
+      operationId: ListAllBooks
+      tags:
+        - books
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringArray"
+    post:
+      summary: Insert a new book
+      operationId: InstallNewBook
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request body
+      tags:
+        - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyValue"
+
+  /books/{id}:
+    summary: Get book by ID
+    get:
+      tags:
+        - books
+      summary: Get book by ID
+      operationId: GetBookById
+      parameters:
+        - name: id
+          in: path
+          description: id of book to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KeyValue"
+        "404":
+          description: id not found
+    delete:
+      tags:
+        - books
+      summary: Delete book by id
+      description: Deletes a single book based on the id supplied
+      operationId: DeleteBookById
+      parameters:
+        - name: id
+          in: path
+          description: id of book to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Id not found
+    put:
+      tags:
+        - books
+      summary: Update book status by id
+      description: Updates the status of the book based on the id supplied
+      operationId: UpdateBookStatusById
+      parameters:
+        - name: id
+          in: path
+          description: id of book to update
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: id not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Status"
+  /healthz:
+    summary: Healthcheck endpoint
+    get:
+      summary: Healthcheck
+      operationId: Healthcheck
+      responses:
+        "200":
+          description: Healthy response
+
+components:
+  schemas:
+    Key:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "my-id"
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "read"
+    KeyValue:
+      type: object
+      required:
+        - name
+        - author
+        - status
+      properties:
+        name:
+          type: string
+          example: "my-name"
+        author:
+          type: string
+          example: "my-author"
+        status:
+          type: string
+          example: "read"
+    StringArray:
+      type: array
+      items:
+        type: string
