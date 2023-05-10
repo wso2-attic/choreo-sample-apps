@@ -41,11 +41,13 @@ paths:
           description: Invalid request body
       tags:
         - books
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/KeyValue"
+      parameters:
+        - name: book
+          in: body
+          description: Book to add to the list
+          required: true
+          schema:
+            $ref: "#/components/schemas/KeyValue"
 
   /books/{id}:
     summary: Get book by ID
@@ -101,16 +103,19 @@ paths:
           required: true
           schema:
             type: string
+        - name: book
+          in: body
+          description: Book to add to the list
+          required: true
+          schema:
+            $ref: "#/components/schemas/KeyValue"
+
       responses:
         "200":
           description: Successful operation
         "404":
           description: id not found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Status"
+
   /healthz:
     summary: Healthcheck endpoint
     get:
