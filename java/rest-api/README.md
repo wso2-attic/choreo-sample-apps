@@ -2,15 +2,15 @@
 
 ## Use the following build config when creating this component in Choreo:
 
-- Dockerfile: `java/rest-api/Dockerfile`
-- Docker context: `java/rest-api/`
-- Port: `8080` 
-- OpenAPI filepath: `java/rest-api/openapi.yaml`
+- Build Preset: **Dockerfile**
+- Dockerfile Path: `go/rest-api/Dockerfile`
+- Docker Context Path: `go/rest-api`
 
+The [endpoints.yaml](.choreo/endpoints.yaml) file contains the endpoint configurations that are used by the Choreo to expose the service.
 
 ## Use the following command to build and run the application locally.
 
-> NOTE: You need to have java 17 installed in your system or a docker and VS Code installed to 
+> NOTE: You need to have java 17 installed in your system or a docker and VS Code installed to
 > open this in a dev container
 
 Use following command to build the project
