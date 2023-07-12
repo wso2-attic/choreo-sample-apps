@@ -86,7 +86,8 @@ Refer https://wso2.com/choreo/docs/devops-and-ci-cd/manage-configurations-and-se
     - `CA_CERT_FILE_PATH`: `/tls/ca.crt`
     - `GREETER_SERVER_URL`: `https://<server-host>:8443/greeter`
 
-    Use the endpoint URL copied from the server component (Step 5) as the value for `GREETER_SERVER_URL` environment variable and make sure to change the protocol to `https`.
+    Use the endpoint URL copied from the server component (Step 5) as the value for `GREETER_SERVER_URL` environment variable and **make sure to change the protocol to `https`**.
+    
     Example: http://mtls-server-3192360657:8443/greeter -> https://mtls-server-3192360657:8443/greeter
 
 4. Deploy the component and run it by clicking the **Run Once** button.
