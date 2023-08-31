@@ -11,7 +11,7 @@ This sample demonstrates how you can deploy server-client services utilizing TCP
    - Dockerfile path: `go/tcp-service/Dockerfile.server`
    - Build Context: `go/tcp-service`
 2. Deploy the component
-3. Navigate to the **Overview** page of the component and copy the project address.
+3. Navigate to the **Overview** page of the component and copy the endpoint address with the Project visibility.
 
 ### Deploy the client
 
