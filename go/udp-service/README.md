@@ -11,7 +11,7 @@ This sample shows how you can deploy server-client services utilizing UDP for co
    - Dockerfile path: `go/udp-service/Dockerfile.server`
    - Build Context: `go/udp-service`
 2. Deploy the component
-3. Navigate to the **Overview** page of the component and copy the project address.
+3. Navigate to the **Overview** page of the component and copy the endpoint address with the Project visibility.
 
 ### Deploy the client
 
