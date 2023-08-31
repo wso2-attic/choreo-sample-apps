@@ -11,7 +11,7 @@ This sample shows how you can deploy server-client services utilizing UDP for co
    - Dockerfile path: `go/udp-service/Dockerfile.server`
    - Build Context: `go/udp-service`
 2. Deploy the component
-3. Navigate to the **Overview** page of the component and copy the Project address.
+3. Navigate to the **Overview** page of the component and copy the project address.
 
 ### Deploy the client
 
@@ -39,7 +39,7 @@ Refer https://wso2.com/choreo/docs/devops-and-ci-cd/manage-configurations-and-se
 2. Start the client
 
    ```
-   SERVER_ADDRESS=localhost:5000 go run ./client
+   SERVER_ADDRESS=localhost:5050 go run ./client
    ```
 
 Refer https://wso2.com/choreo/docs/develop-components/develop-services/develop-a-service/ for more information on how to develop and deploy a service component.
