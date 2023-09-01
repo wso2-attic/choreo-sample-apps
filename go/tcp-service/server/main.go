@@ -47,15 +47,15 @@ func handleConnection(conn net.Conn) {
 			return
 		}
 
-		log.Printf("< Received data from client: %v", string(buffer[:n]))
-		message := "Hello from TCP server, Received: " + string(buffer[:n])
+		log.Printf("> Received message from %s: %v", conn.RemoteAddr(), string(buffer[:n]))
+		message := "Hello " + string(buffer[:n])
 		_, err = conn.Write([]byte(message))
 		if err != nil {
 			log.Printf("Error writing data: %v", err)
 			break
 		}
 
-		log.Printf("> Sent data to client: %v", message)
+		log.Printf("< Sent message to %s: %v", conn.RemoteAddr(), message)
 	}
 }
 
