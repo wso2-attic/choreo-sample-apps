@@ -35,27 +35,27 @@ func handleConnection(conn net.Conn) {
 	log.Printf("Accepted connection from %v", conn.RemoteAddr())
 
 	// Read data from the client
+	buffer := make([]byte, 1024)
 	for {
-		buffer := make([]byte, 1024)
 		n, err := conn.Read(buffer)
 		if err != nil && err != io.EOF {
-			log.Printf("Error reading data : %v", err)
+			log.Printf("Error reading data: %v", err)
 			break
 		}
 
-		if n > 0 {
-			log.Printf("Received data from client : %v", string(buffer[:n]))
-			message := "Hello from TCP server"
-			_, err = conn.Write([]byte(message))
-			if err != nil {
-				log.Printf("Error writing data : %v", err)
-				break
-			}
-
-			log.Printf("Sent data to client : {%v}", message)
-		} else {
+		if n == 0 {
 			return
 		}
+
+		log.Printf("< Received data from client: %v", string(buffer[:n]))
+		message := "Hello from TCP server, Received: " + string(buffer[:n])
+		_, err = conn.Write([]byte(message))
+		if err != nil {
+			log.Printf("Error writing data: %v", err)
+			break
+		}
+
+		log.Printf("> Sent data to client: %v", message)
 	}
 }
 
@@ -63,50 +63,47 @@ func main() {
 	// Creating a TCP listener
 	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
-		log.Fatalf("Error starting TCP server : %v", err)
+		log.Fatalf("Error starting TCP server: %v", err)
 	}
 
-	defer listener.Close()
 	log.Printf("TCP server listening on %s", listener.Addr())
 
-	ctx, cancel := context.WithCancel(context.Background())
+	// Capture signals to handle graceful shutdown
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
 	wg := &sync.WaitGroup{}
 
-	// Capture signals to handle graceful shutdown
-	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
-
-	// Handle graceful shutdown
+	// Accept incoming connections
 	go func() {
-		sig := <-sigChan
-		log.Println("Received signal:", sig)
-		cancel()
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				select {
+				case <-ctx.Done():
+					log.Println("Server shutting down gracefully...")
+					return
+				default:
+					log.Println("Error accepting connection:", err)
+					continue
+				}
+			}
+			wg.Add(1)
 
-		close(sigChan)
-		listener.Close()
-		wg.Wait()
+			// Handle incoming connection in a new goroutine
+			go func(conn net.Conn) {
+				handleConnection(conn)
+				wg.Done()
+			}(conn)
+		}
 	}()
 
-	// Accept incoming connections
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			select {
-			case <-ctx.Done():
-				log.Println("Server shutting down gracefully...")
-				wg.Wait()
-				return
-			default:
-				log.Println("Error accepting connection:", err)
-				continue
-			}
-		}
+	// Block until the context is canceled (graceful shutdown)
+	<-ctx.Done()
 
-		wg.Add(1)
-		// Handle incoming connection in a new goroutine
-		go func(conn net.Conn) {
-			handleConnection(conn)
-			wg.Done()
-		}(conn)
-	}
+	// Stop accepting incoming connections and wait until existing connections are closed
+	listener.Close()
+	wg.Wait()
+
+	log.Println("Server has gracefully shut down.")
 }
