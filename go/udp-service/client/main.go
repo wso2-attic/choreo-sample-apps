@@ -54,7 +54,7 @@ func main() {
 		log.Fatalf("Failed to send UDP message: %v", err)
 	}
 
-	log.Printf("Sent UDP message: %s", message)
+	log.Printf("> Sent message: %s", message)
 
 	// Receiving and Logging Server Response
 	buffer := make([]byte, 1024)
@@ -63,5 +63,5 @@ func main() {
 		log.Fatalf("Failed to read response: %v", err)
 	}
 
-	log.Printf("Received server response: {%s}", string(buffer[:bytesRead]))
+	log.Printf("< Received response: %s", string(buffer[:bytesRead]))
 }

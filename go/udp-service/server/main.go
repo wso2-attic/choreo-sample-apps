@@ -51,13 +51,16 @@ func main() {
 			continue
 		}
 
-		log.Printf("Received data from %s: %s\n", clientAddr.String(), string(buffer[:bytesRead]))
+		log.Printf("> Received message from %s: %s\n", clientAddr.String(), string(buffer[:bytesRead]))
 
 		/// Prepare and send a response to the client
-		response := []byte(string(buffer[:bytesRead]) + " - Response from UDP server!")
+		message := "Hello " + string(buffer[:bytesRead])
+		response := []byte(message)
 		_, err = conn.WriteToUDP(response, clientAddr)
 		if err != nil {
 			log.Printf("Error sending response: %v", err)
 		}
+
+		log.Printf("< Sent message to %s: %s\n", clientAddr.String(), message)
 	}
 }
