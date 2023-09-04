@@ -31,9 +31,12 @@ RUN addgroup -g 10014 choreo && \
 # COPY the source code as the last step
 COPY . .
 
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+
+# Run unit tests
+RUN go test -v ./...
 
 # Build the binary
-ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/app -buildvcs=false
 
 FROM alpine
