@@ -20,12 +20,11 @@ FROM node:18-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install --omit=dev
+# Copy the application code from the build stage
+COPY --from=build /usr/src/app .
 
-# Copy the rest of the application source
-COPY . .
+# Remove dev dependencies from the build stage app
+RUN npm prune --omit=dev
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
