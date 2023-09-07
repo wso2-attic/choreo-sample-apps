@@ -1,6 +1,6 @@
 # Swagger Petstore Sample
 
-This is the java project for a simplified version of the pet store sample hosted at https://petstore3.swagger.io.
+This is the java project for a simplified version of the [pet store sample](https://github.com/swagger-api/swagger-petstore) hosted at https://petstore3.swagger.io.
 
 ## Use the following build config when creating this component in Choreo:
 
