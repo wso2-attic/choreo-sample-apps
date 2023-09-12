@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.mjs"
+    "start": "node index.mjs",
+    "test": "mocha test.mjs"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -13,5 +14,10 @@
     "express": "^4.18.1",
     "node-cache": "^5.1.2",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0"
   }
 }
