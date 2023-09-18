@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: Next.js API
+  version: 1.0.0
+  description: API for managing books
+paths:
+  /api/books:
+    post:
+      summary: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                author:
+                  type: string
+                status:
+                  type: string
+              required:
+                - title
+                - author
+                - status
+      responses:
+        '200':
+          description: Successful creation of a book
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    get:
+      summary: Get all books for the authenticated user
+      responses:
+        '200':
+          description: Successful retrieval of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+
+  /api/books/{id}:
+    delete:
+      summary: Delete a book by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful deletion of a book
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        status:
+          type: string
+        user_writer_id:
+          type: string
