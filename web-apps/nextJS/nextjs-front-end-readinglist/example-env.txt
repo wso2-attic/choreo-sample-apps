@@ -1,0 +1,5 @@
+NEXT_PUBLIC_SERVICE_URL=http://localhost:3001/api/books
+ASGARDEO_CLIENT_ID=
+ASGARDEO_CLIENT_SECRET=
+ASGARDEO_SCOPES=openid email profile internal_login
+ASGARDEO_ORGANIZATION_NAME=thushani

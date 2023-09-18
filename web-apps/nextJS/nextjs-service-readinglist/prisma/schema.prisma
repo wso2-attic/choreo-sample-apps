@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "mysql://avnadmin:AVNS_K_L-iI6blqfKKfs9Vga@mysql-readinglist-readinglist.aivencloud.com:14887/defaultdb?ssl-mode=REQUIRED" // uses connection pooling
+}
+
+model Book {
+  id        String     @default(cuid()) @id
+  title     String
+  author    String
+  status    String
+  user_writer_id String
+}
