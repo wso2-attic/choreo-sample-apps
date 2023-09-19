@@ -16,24 +16,26 @@
  * under the License.
  */
 
-package routes
+package config
 
 import (
-	"time"
-
-	"github.com/gofiber/fiber/v2"
-
-	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/pet-store/internal/config"
+	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/rest-user-service/internal/models"
 )
 
-func HandleHealthCheckRequest(ctx *fiber.Ctx) error {
-	return ctx.JSON(fiber.Map{
-		"message":     "Pet store service is healthy",
-		"environment": config.GetConfig().Env,
-		"timestamp":   time.Now(),
-	})
+type Config struct {
+	// Env sets the environment the service is running in.
+	// This is used in health check endpoint to indicate the environment.
+	Env string
+	// Hostname sets the hostname of the running service.
+	// This is used to generate the Swagger host URL.
+	Hostname string
+	// Port sets the port of the running service.
+	Port int
+	// InitialDataPath sets the path to load the initial data file.
+	// Refer to the InitialData struct for the file format.
+	InitialDataPath string
 }
 
-func RegisterHealthRoutes(r fiber.Router) {
-	r.Get("/healthz", HandleHealthCheckRequest)
+type InitialData struct {
+	Users []models.User `json:"pets"`
 }

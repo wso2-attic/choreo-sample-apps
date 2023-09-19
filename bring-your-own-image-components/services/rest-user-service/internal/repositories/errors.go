@@ -16,24 +16,11 @@
  * under the License.
  */
 
-package routes
+package repositories
 
 import (
-	"time"
-
-	"github.com/gofiber/fiber/v2"
-
-	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/pet-store/internal/config"
+	"errors"
 )
 
-func HandleHealthCheckRequest(ctx *fiber.Ctx) error {
-	return ctx.JSON(fiber.Map{
-		"message":     "Pet store service is healthy",
-		"environment": config.GetConfig().Env,
-		"timestamp":   time.Now(),
-	})
-}
-
-func RegisterHealthRoutes(r fiber.Router) {
-	r.Get("/healthz", HandleHealthCheckRequest)
-}
+var ErrRecordNotFound = errors.New("record not found")
+var ErrRecordAlreadyExists = errors.New("record already exists")

@@ -16,24 +16,23 @@
  * under the License.
  */
 
-package routes
+package models
 
 import (
-	"time"
-
-	"github.com/gofiber/fiber/v2"
-
-	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/pet-store/internal/config"
+	"context"
 )
 
-func HandleHealthCheckRequest(ctx *fiber.Ctx) error {
-	return ctx.JSON(fiber.Map{
-		"message":     "Pet store service is healthy",
-		"environment": config.GetConfig().Env,
-		"timestamp":   time.Now(),
-	})
+type User struct {
+	Id       string `json:"id" example:"fe2594d0-ccea-42a2-97ac-0487458b5642"`
+	Name     string `json:"name"`
+	Age      int    `json:"age"`
+	Location string `json:"location"`
 }
 
-func RegisterHealthRoutes(r fiber.Router) {
-	r.Get("/healthz", HandleHealthCheckRequest)
+type UserRepository interface {
+	Add(ctx context.Context, user User) (User, error)
+	Update(ctx context.Context, updatedUser User) (User, error)
+	List(ctx context.Context) ([]User, error)
+	GetById(ctx context.Context, id string) (User, error)
+	DeleteById(ctx context.Context, id string) (User, error)
 }

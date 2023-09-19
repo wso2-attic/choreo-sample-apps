@@ -23,12 +23,12 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/pet-store/internal/config"
+	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/rest-user-service/internal/config"
 )
 
 func HandleHealthCheckRequest(ctx *fiber.Ctx) error {
 	return ctx.JSON(fiber.Map{
-		"message":     "Pet store service is healthy",
+		"message":     "User service is healthy",
 		"environment": config.GetConfig().Env,
 		"timestamp":   time.Now(),
 	})

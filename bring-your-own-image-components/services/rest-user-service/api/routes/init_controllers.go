@@ -19,21 +19,15 @@
 package routes
 
 import (
-	"time"
-
-	"github.com/gofiber/fiber/v2"
-
-	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/pet-store/internal/config"
+	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/rest-user-service/internal/config"
+	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/rest-user-service/internal/controllers"
+	"github.com/wso2/choreo-sample-apps/bring-your-image-components/services/rest-user-service/internal/repositories"
 )
 
-func HandleHealthCheckRequest(ctx *fiber.Ctx) error {
-	return ctx.JSON(fiber.Map{
-		"message":     "Pet store service is healthy",
-		"environment": config.GetConfig().Env,
-		"timestamp":   time.Now(),
-	})
-}
+var userController *controllers.UserController
 
-func RegisterHealthRoutes(r fiber.Router) {
-	r.Get("/healthz", HandleHealthCheckRequest)
+func initControllers() {
+	initialData := config.LoadInitialData()
+	userRepository := repositories.NewUserRepository(initialData.Users)
+	userController = controllers.NewUserController(userRepository)
 }
