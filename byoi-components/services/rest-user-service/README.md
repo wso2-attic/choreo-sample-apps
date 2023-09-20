@@ -10,7 +10,7 @@
 ### Use the following endpoint configuration when creating endpoints for the component:
 
 - Endpoint Yaml - [endpoints.yaml](.choreo/endpoints.yaml)
-- OpenAPI - [swagger.yaml](docs/swagger.yaml)
+- OpenAPI - [openapi.yaml](docs/openapi.yaml)
 
 
 ### Use the following configuration when creating this component in Choreo:
