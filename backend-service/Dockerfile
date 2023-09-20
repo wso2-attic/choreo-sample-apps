@@ -1,14 +1,27 @@
-FROM golang:1.10 AS build
-WORKDIR /go/src
-COPY go ./go
-COPY main.go .
+FROM golang:1.19.0-alpine as build-env
 
-ENV CGO_ENABLED=0
-RUN go get -d -v ./...
+RUN mkdir /app
+WORKDIR /app
+COPY go.mod go.sum ./
 
-RUN go build -a -installsuffix cgo -o swagger .
+# Get dependancies - will also be cached if we won't change mod/sum
+RUN go mod download
 
-FROM scratch AS runtime
-COPY --from=build /go/src/swagger ./
-EXPOSE 8080/tcp
-ENTRYPOINT ["./swagger"]
+# Create a new user with UID 10014
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+
+
+# COPY the source code as the last step
+COPY . .
+
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+
+# Build the binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/app -buildvcs=false
+
+FROM alpine
+COPY --from=build-env /go/bin/app /go/bin/app
+
+USER 10014
+ENTRYPOINT ["/go/bin/app"]
