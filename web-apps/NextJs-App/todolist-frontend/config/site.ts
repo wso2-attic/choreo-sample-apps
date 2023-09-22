@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + NextUI",
-  description: "Make your Todo Lists here!.",
+  name: "TodoList App",
+  description: "Manage your Todo Lists here!.",
   navItems: [
     {
       label: "Home",

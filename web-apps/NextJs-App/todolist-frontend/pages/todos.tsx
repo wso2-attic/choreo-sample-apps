@@ -1,11 +1,7 @@
-// import Layout from "@/components/Layouts";
 import { listTodosForUser, TodoResponse } from "@/svc/backend.client";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { getServerSession } from "next-auth";
-import { getSession, SessionContext } from "next-auth/react";
 import Link from "next/link";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { redirectTo, redirectToLogin } from "@/utils/redirect";
+import { redirectToLogin } from "@/utils/redirect";
 import { getNextAuthServerSession } from "@/utils/session";
 import DefaultLayout from "@/layouts/default";
 import {

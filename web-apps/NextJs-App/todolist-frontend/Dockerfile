@@ -3,7 +3,9 @@ FROM node:18
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm cache clean --force && \
+    npm install -g npm@latest && \
+    npm install
 
 COPY . .
 
