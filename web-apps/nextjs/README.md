@@ -72,7 +72,6 @@ Follow the steps below to create the service:
     | **Project Path**              | **`web-apps/NextJs-App/backend-service`**                    |
     | **Dockerfile Path**            | **`web-apps/NextJs-App/backend-service/Dockerfile`**                               |
     | **Docker Context Path**            | **`web-apps/NextJs-App/backend-service`**                               |
-    | **Port** | **`3000`** |
 
 9. Click **Create**. This initializes the service with the implementation from your GitHub repository and takes you to the **Overview** page of the component.
 
@@ -82,7 +81,7 @@ For the REST endpoint of the service to be invokable, you need to deploy it. To 
 
 1. In the left navigation menu, click **Deploy**.
 
-2. In the **Build Area** card, click **Deploy** from the split button.
+2. In the **Build Area** card, click **Configure & Deploy** from the split button.
 
 !!! info
 
@@ -107,8 +106,6 @@ To ensure that the defined USER instruction is valid, it must conform to the fol
 
     If you have Choreo environments on a private data plane, you can ignore these vulnerabilities and proceed with the deployment.
 
-4. Click Create. Once the component creation is complete, you will see the component overview page.
-
 You have successfully created a Service component from a Dockerfile and deployed it.
 
 ## Step 2: Create the Next.js Web Application
@@ -121,7 +118,7 @@ Let's deploy a next.js front-end application to consume the API. This applicatio
 
 To host the front-end application in Choreo, you must create a web application component. To create a web application component, follow the steps given below.
 
-1. In the Choreo console, select the project of the reading list application that you created in the previous steps, from the project list located on the header.
+1. In the Choreo console, select the project of the todo list application that you created in the previous steps, from the project list located on the header.
 2. Click **Create** under the **Component Listing** section to create a new component.
 3. On the **Web Application** card, click **Create**.
 4. Enter a unique name and a description for the web application. You can enter the name and description given below:
@@ -143,6 +140,7 @@ To host the front-end application in Choreo, you must create a web application c
     | **Build Preset**      | Click **Dockerfile** since the frontend is a containerized Next.js application built using a Dockerfile|
     | **Dockerfile Path***              | **`web-apps/NextJs-App/backend-service/Dockerfile`** |
     | **Dockerfile context Path***     | **`web-apps/NextJs-App/todolist-frontend/`**             |
+    | **Port** | **`3000`** |
 
 9. Click **Create**. This initializes the service with the implementation from your GitHub repository and takes you to the **Overview** page of the component.
 
@@ -153,10 +151,9 @@ Let's consume the service through the web app. Choreo services are by default se
 Once you create the web application component, you can deploy it to the Choreo runtime. To deploy the web application component, follow the steps below:
 
 1. In the left menu, click **Deploy**.
-2. In the **Build Area** card, select **Configure & Deploy** from the split button and click to add runtime configurations for your application and deploy. 
-3. Add configurations and deploy. The deployment may take a few minutes to complete. See how to define and read configurations at [Develop a Web Application page](https://wso2.com/choreo/docs/develop-components/develop-a-web-application/#creating-a-web-application).
+2. In the **Build Area** card, select **Deploy** from the split button and click to deploy. 
+3. The deployment may take a few minutes to complete. See how to define and read configurations at [Develop a Web Application page](https://wso2.com/choreo/docs/develop-components/develop-a-web-application/#creating-a-web-application).
 4. Once you deploy the web application, copy the **Web App URL** from the development environment card.
-5. Navigate to the web app URL. You can verify that you have successfully hosted the web application.
 
 Although you hosted the web application, you have not configured the web application to securely invoke the service. Let's create an OAuth app in the IdP (Asgardeo) and configure the web app.
 
@@ -167,7 +164,7 @@ Choreo uses Asgardeo as the default identity provider for Choreo applications.
 1. Access Asgardeo at [https://console.asgardeo.io/](https://console.asgardeo.io/) and sign in with the same credentials with which you signed in to Choreo.
 2. In the Asgardeo Console's left navigation, click **Application**. Click **New Application** then choose **Standard based application**.
 3. Provide a name for the application. For example, `todoListApp`, choose **OpenIDConnect** and Register.
-3. Click the **Protocol** tab and apply the following changes:
+4. Click the **Protocol** tab and apply the following changes:
 
     1. Under **Allowed grant types**, select **Code**.
     2. Select the **Public client** checkbox.
@@ -175,14 +172,15 @@ Choreo uses Asgardeo as the default identity provider for Choreo applications.
     4. In the **Allowed origins** field, add the Web Application URL.
     6. Under **Access Token**, select **JWT** as the **Token type**.
     7. Click **Update**.
+5. Click the **User Attributes** tab and apply the following changes:
+    1. Select **email** and **username** as Mandatory from the **User Attribute Selection** list.
+#### Step 2.1.4: Configure the web application component
 
-#### Step 2.1.4: Configure & Deploy the web application component
+Once the web application component is deployed, you can configure the web application. To configure the web application, follow the steps given below:
 
-Once the web application component is created, you can deploy it to the Choreo runtime. To deploy the web application component, follow the steps below:
-
-1. In the left menu, click **Deploy**.
-2. In the **Build Area** card, select **Configure & Deploy** from the split button and click.
-3. In the **Configure & Deploy** panel, add the mount path as `/app/.env` and add the following configurations in the editor:
+1. In the **Environment Card**, click **Manage Configs & Secrets**, which will take you to the window to add configurations. 
+2. Create a new configuration, and select **ConfigMap** as config Type and **File Mount** as Mount Type.
+3. Give a meaningful config name, add the mount path as `/app/.env` and add the following configurations in the editor:
 ```
 SECRET={a random secret}
 NEXTAUTH_SECRET={a random secret}
@@ -236,4 +234,4 @@ To test the front-end application and send requests to the **Todo List Service**
 2. Click **Login with Asgardeo**, and sign in with the credentials of a user that you created in Asgardeo.
 **Allow**.
 
-Congratulations! You have successfully created Next.js Web Application with a separate backend. You can navigate through pages and view the todo lists. Since the web application is created for demonstration purposes only, it does not have the functionality to add or delete todo lists.
+Congratulations! You have successfully created Next.js Web Application with a separate backend. You can navigate through pages and view the todo lists. Since the web application is created for demonstration purposes only, it does not have the functionality to add or delete todo lists currently.
