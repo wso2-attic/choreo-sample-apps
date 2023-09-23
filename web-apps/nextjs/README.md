@@ -86,12 +86,15 @@ For the REST endpoint of the service to be invokable, you need to deploy it. To 
 
 !!! info
 
-        1.  To successfully build your container with Choreo, it is essential to explicitly define a User ID (UID) under the USER instruction in your Dockerfile. For reference, see [sample Dockerfile](https://github.com/wso2/choreo-sample-apps/blob/main/go/greeter/Dockerfile).
-        To ensure that the defined USER instruction is valid, it must conform to the following conditions:
-            - A valid User ID is a numeric value between 10000-20000, such as `10001` or `10500`.
-            - Usernames are considered invalid and should not be used. For example, `my-custom-user-12221` or `my-custom-user` are invalid User IDs.
+1.  To successfully build your container with Choreo, it is essential to explicitly define a User ID (UID) under the USER instruction in your Dockerfile. For reference, see [sample Dockerfile](https://github.com/wso2/choreo-sample-apps/blob/main/go/greeter/Dockerfile).
 
-        2. Deploying the service component may take a while. You can track the progress by observing the logs. Once the deployment is complete, the deployment status changes to Active in the corresponding environment card.
+To ensure that the defined USER instruction is valid, it must conform to the following conditions:
+
+- A valid User ID is a numeric value between 10000-20000, such as `10001` or `10500`.
+
+- Usernames are considered invalid and should not be used. For example, `my-custom-user-12221` or `my-custom-user` are invalid User IDs.
+
+2. Deploying the service component may take a while. You can track the progress by observing the logs. Once the deployment is complete, the deployment status changes to Active in the corresponding environment card.
 
 3. Check the deployment progress by observing the console logs on the right of the page.
     You can access the following scans under **Build**. 

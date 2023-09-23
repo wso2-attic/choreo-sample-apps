@@ -20,7 +20,7 @@ export const listTodosForUser = async (
 ): Promise<TodoResponse[]> => {
   try {
     const response: AxiosResponse<TodoResponse[]> = await axios.get(
-      `${process.env.NEXT_PUBLIC_TODO_API_BASE_URL}/users/${userId}/todos`
+      `${BASE_URL}/users/${userId}/todos`
     );
     return response.data;
   } catch (error) {
@@ -36,7 +36,7 @@ export const createTodoForUser = async (
 ): Promise<TodoResponse> => {
   try {
     const response: AxiosResponse<TodoResponse> = await axios.post(
-      `${process.env.NEXT_PUBLIC_TODO_API_BASE_URL}/users/${userId}/todos`,
+      `${BASE_URL}/users/${userId}/todos`,
       todoData
     );
     return response.data;
@@ -87,7 +87,7 @@ export const deleteTodoForUser = async (
 ): Promise<number> => {
   try {
     const response: AxiosResponse<void> = await axios.delete(
-      `${process.env.NEXT_PUBLIC_TODO_API_BASE_URL}/users/${userId}/todos/${todoId}`
+      `${BASE_URL}/users/${userId}/todos/${todoId}`
     );
     return response.status;
   } catch (error) {
