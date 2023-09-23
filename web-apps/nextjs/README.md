@@ -70,8 +70,9 @@ Follow the steps below to create the service:
     | **Branch**            | **`main`**                               |
     | **Build Preset**      | Click **Dockerfile** because you are creating the REST API from a Dockerfile.|
     | **Project Path**              | **`web-apps/NextJs-App/backend-service`**                    |
-        | **Dockerfile Path**            | **`web-apps/NextJs-App/backend-service/Dockerfile`**                               |
-            | **Docker Context Path**            | **`web-apps/NextJs-App/backend-service`**                               |
+    | **Dockerfile Path**            | **`web-apps/NextJs-App/backend-service/Dockerfile`**                               |
+    | **Docker Context Path**            | **`web-apps/NextJs-App/backend-service`**                               |
+    | **Port** | **`3000`** |
 
 9. Click **Create**. This initializes the service with the implementation from your GitHub repository and takes you to the **Overview** page of the component.
 
@@ -80,9 +81,11 @@ Follow the steps below to create the service:
 For the REST endpoint of the service to be invokable, you need to deploy it. To deploy the service, follow the steps given below:
 
 1. In the left navigation menu, click **Deploy**.
+
 2. In the **Build Area** card, click **Deploy** from the split button.
 
 !!! info
+
         1.  To successfully build your container with Choreo, it is essential to explicitly define a User ID (UID) under the USER instruction in your Dockerfile. For reference, see [sample Dockerfile](https://github.com/wso2/choreo-sample-apps/blob/main/go/greeter/Dockerfile).
         To ensure that the defined USER instruction is valid, it must conform to the following conditions:
             - A valid User ID is a numeric value between 10000-20000, such as `10001` or `10500`.
@@ -98,6 +101,7 @@ For the REST endpoint of the service to be invokable, you need to deploy it. To 
     -  **Container (Trivy) vulnerability scan**: The details of the vulnerabilities open in a separate pane. If this scan detects critical vulnerabilities, the build will fail.
 
 !!! info
+
     If you have Choreo environments on a private data plane, you can ignore these vulnerabilities and proceed with the deployment.
 
 4. Click Create. Once the component creation is complete, you will see the component overview page.
@@ -105,13 +109,12 @@ For the REST endpoint of the service to be invokable, you need to deploy it. To 
 You have successfully created a Service component from a Dockerfile and deployed it.
 
 ## Step 2: Create the Next.js Web Application
-### Step 2.1: Create an application
 
 ### Step 2.1: Deploy a web application and invoke the REST API
 
 Let's deploy a next.js front-end application to consume the API. This application is designed to personalize the todo lists based on the user ID that it obtains from its identity provider.
 
-#### Step 2.3.1: Create a web application component
+#### Step 2.1.1: Create a web application component
 
 To host the front-end application in Choreo, you must create a web application component. To create a web application component, follow the steps given below.
 
@@ -142,7 +145,7 @@ To host the front-end application in Choreo, you must create a web application c
 
 Let's consume the service through the web app. Choreo services are by default secured. To consume a service in Choreo you need an access token. Let's configure the web application to connect to an IdP (For this guide, let's use Asgardeo) to generate an access token for a user.
 
-#### Step 2.3.2: Deploy the web application component
+#### Step 2.1.2: Deploy the web application component
 
 Once you create the web application component, you can deploy it to the Choreo runtime. To deploy the web application component, follow the steps below:
 
@@ -154,7 +157,7 @@ Once you create the web application component, you can deploy it to the Choreo r
 
 Although you hosted the web application, you have not configured the web application to securely invoke the service. Let's create an OAuth app in the IdP (Asgardeo) and configure the web app.
 
-#### Step 2.3.3: Configure Asgardeo (IdP) to integrate with your application
+#### Step 2.1.3: Configure Asgardeo (IdP) to integrate with your application
 
 Choreo uses Asgardeo as the default identity provider for Choreo applications.
 
@@ -170,31 +173,38 @@ Choreo uses Asgardeo as the default identity provider for Choreo applications.
     6. Under **Access Token**, select **JWT** as the **Token type**.
     7. Click **Update**.
 
-#### Step 2.3.4: Configure & Deploy the web application component
+#### Step 2.1.4: Configure & Deploy the web application component
 
 Once the web application component is created, you can deploy it to the Choreo runtime. To deploy the web application component, follow the steps below:
 
 1. In the left menu, click **Deploy**.
 2. In the **Build Area** card, select **Configure & Deploy** from the split button and click.
-3. In the **Configure & Deploy** panel, add the mount path as /app/.env and add the following configurations in the editor:
+3. In the **Configure & Deploy** panel, add the mount path as `/app/.env` and add the following configurations in the editor:
 ```
-NEXTAUTH_URL=http://localhost:3000
 SECRET={a random secret}
 NEXTAUTH_SECRET={a random secret}
-ASGARDEO_CLIENT_ID={aAsgardeo client id of the Asgardeo application created}
+ASGARDEO_CLIENT_ID={Asgardeo client id of the Asgardeo application created}
 ASGARDEO_CLIENT_SECRET={Asgardeo client secret of the Asgardeo application created}
 ASGARDEO_SCOPES=openid email profile
 ASGARDEO_SERVER_ORIGIN=https://api.asgardeo.io/t/{org-name}
-TODO_API_BASE_URL={project URL}
+TODO_API_BASE_URL={project URL of the todo list service}
 ```
+
+!!! info
+
+    1. You can copy the project URL of the todo list service from the overview page of the service component.
+
+    2. See more details on NEXTAUTH_URL and NEXTAUTH_SECRET configurations at [Next.js Official Documentation] (https://next-auth.js.org/configuration/options)
+
+
 4. Once the web application is deployed, copy the **Web App URL** from the development environment card.
-5. Navigate to the **DevOps** view from the left pane and click Configs & Secrets and edit the created config map as `NEXTAUTH_URL= {Copied web app url}`. 
+5. Navigate to the **DevOps** view from the left pane and click Configs & Secrets and add a new config as `NEXTAUTH_URL= {Copied web app url}` to the created config map at the deployment . 
 6. Click save.
 5. After a few seconds when the deployment is active, navigate to the copied web app URL. You can verify that the web app is successfully hosted.
 
 Next, let's create a user to access the web application.
 
-#### Step 2.3.5: Create a user in Asgardeo
+#### Step 2.1.5: Create a user in Asgardeo
 
 To sign in to the **todoListApp** application and create private todo lists, the end users require user IDs. End users can self-register these user IDs in Asgardeo or request an Asgardeo user with administrative privileges to register them. For more information, see [Asgardeo Documentation - Manage users](https://wso2.com/asgardeo/docs/guides/users/manage-customers/#onboard-a-user).
 
@@ -215,17 +225,12 @@ To define a user for the **todoListApp** application, follow the steps given bel
 7. In the email you receive from Asgardeo (with the subject **Here is your new account in the organization <ORGANIZATION_ID>**), click **Set Password**.
 8. In the **Enter new password** and **Confirm password** fields, enter a password that complies with the given criteria, and then click **Proceed**.
 
-#### Step 2.3.6: Log in and test the front-end application
+#### Step 2.1.6: Log in and test the front-end application
 
 To test the front-end application and send requests to the **Todo List Service** REST API via it, follow the steps given below:
 
 1. Access the front-end application via its web URL mentioned in the web application overview page.
 2. Click **Login with Asgardeo**, and sign in with the credentials of a user that you created in Asgardeo.
 **Allow**.
-
-    The application opens as follows.
-
-    ![Front-end application](../assets/img/quick-start-guides/front-end-application.png){.cInlineImage-half}
-
 
 Congratulations! You have successfully created Next.js Web Application with a separate backend. You can navigate through pages and view the todo lists. Since the web application is created for demonstration purposes only, it does not have the functionality to add or delete todo lists.
