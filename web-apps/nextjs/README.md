@@ -104,7 +104,7 @@ To ensure that the defined USER instruction is valid, it must conform to the fol
 
 !!! info
 
-    If you have Choreo environments on a private data plane, you can ignore these vulnerabilities and proceed with the deployment.
+If you have Choreo environments on a private data plane, you can ignore these vulnerabilities and proceed with the deployment.
 
 You have successfully created a Service component from a Dockerfile and deployed it.
 
@@ -193,9 +193,9 @@ TODO_API_BASE_URL={project URL of the todo list service}
 
 !!! info
 
-    1. You can copy the project URL of the todo list service from the overview page of the service component.
+1. You can copy the project URL of the todo list service from the overview page of the service component.
 
-    2. See more details on NEXTAUTH_URL and NEXTAUTH_SECRET configurations at [Next.js Official Documentation] (https://next-auth.js.org/configuration/options)
+2. See more details on NEXTAUTH_URL and NEXTAUTH_SECRET configurations at [Next.js Official Documentation] (https://next-auth.js.org/configuration/options)
 
 
 4. Once the web application is deployed, copy the **Web App URL** from the development environment card.
