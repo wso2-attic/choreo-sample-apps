@@ -88,4 +88,17 @@ var routes = Routes{
 		"/users/{userId}/todos",
 		UsersUserIdTodosPost,
 	},
+	Route{
+		"respondOptions",
+		strings.ToUpper("Options"),
+		"/users/{userId}/todos",
+		respondOptions,
+	},
+
+	Route{
+		"respondOptionsTodoId",
+		strings.ToUpper("Options"),
+		"/users/{userId}/todos/{id}",
+		respondOptions,
+	},
 }

@@ -35,6 +35,9 @@ func getTodoId(r *http.Request) (int32, error) {
 func writeJSONResponse(w http.ResponseWriter, data interface{}) {
 	response, _ := json.Marshal(data)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(response)
 }
@@ -94,6 +97,10 @@ func UsersUserIdTodosIdDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	todos = append(todos[:idx], todos[idx+1:]...)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -146,8 +153,16 @@ func UsersUserIdTodosPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	todo.UserId = userId
-	todo.Id = int32(lastId + 1)
+	todo.Id = int32(3 + lastId + 1)
 	lastId++
 	todos = append(todos, todo)
 	writeJSONResponse(w, todo)
+}
+
+func respondOptions(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.WriteHeader(http.StatusOK)
 }
