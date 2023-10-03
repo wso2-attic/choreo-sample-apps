@@ -103,7 +103,7 @@ paths:
       tags:
         - pet
       summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
+      description: Finds Pets by status
       operationId: findPetsByStatus
       parameters:
         - name: status
@@ -176,7 +176,7 @@ paths:
       tags:
         - pet
       summary: Find pet by ID
-      description: Returns a single pet
+      description: Find pet by ID
       operationId: getPetById
       parameters:
         - name: petId
@@ -206,7 +206,7 @@ paths:
       tags:
         - pet
       summary: Updates a pet in the store with form data
-      description: ''
+      description: Updates a pet in the store with form data
       operationId: updatePetWithForm
       parameters:
         - name: petId
@@ -241,7 +241,7 @@ paths:
       tags:
         - pet
       summary: Deletes a pet
-      description: ''
+      description: Deletes a pet
       operationId: deletePet
       parameters:
         - name: api_key
@@ -269,7 +269,7 @@ paths:
       tags:
         - user
       summary: Get user by user name
-      description: ''
+      description: Get user by user name
       operationId: getUserByName
       parameters:
         - name: username
@@ -299,7 +299,7 @@ paths:
       tags:
         - user
       summary: Create user
-      description: This can only be done by the logged in user.
+      description: Create user
       operationId: createUser
       requestBody:
         description: Created user object
@@ -320,6 +320,9 @@ paths:
 components:
   schemas:
     Category:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -332,6 +335,9 @@ components:
       xml:
         name: category
     Tag:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -343,8 +349,12 @@ components:
         name: tag
     Pet:
       required:
+        - id
         - name
+        - category
         - photoUrls
+        - tags
+        - status
       type: object
       properties:
         id:
@@ -380,6 +390,15 @@ components:
       xml:
         name: pet
     User:
+      required:
+        - id
+        - username
+        - firstName
+        - lastName
+        - email
+        - password
+        - phone
+        - userStatus
       type: object
       properties:
         id:
